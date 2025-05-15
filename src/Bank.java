@@ -7,6 +7,12 @@ public class Bank {
     private ArrayList<User> users;
     private ArrayList<Account> accounts;
 
+    public Bank(String name) {
+        this.name = name;
+        this.users = new ArrayList<User>();
+        this.accounts = new ArrayList<Account>();
+    }
+
     public String getNewUserUUID() {
         String uuid;
         Random rng = new Random();
@@ -59,7 +65,33 @@ public class Bank {
         return uuid;
     }
 
-    public void addAccount(Account anAcct) {
-        this.accounts.add(anAcct);
+    public void addAccount(Account onAcct) {
+        this.accounts.add(onAcct);
+    }
+
+    public User addUser(String firstName, String lastName, String pin) {
+
+        User newUser = new User(firstName, lastName,pin, this);
+        this.users.add(newUser);
+
+        Account newAccount = new Account("Savings", newUser, this);
+        newUser.addAccount(newAccount);
+        this.accounts.add(newAccount);
+
+        return newUser;
+    }
+
+    public User userLogin(String userId, String pid) {
+        for (User u : this.users) {
+            if (u.getUUID().compareTo(userId) == 0 && u.validatePin(pid)) {
+                return u;
+            }
+        }
+
+        return null;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

@@ -36,4 +36,38 @@ public class User {
     public String getUUID() {
         return this.uuid;
     }
+
+    public boolean validatePin(String aPin) {
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            return MessageDigest.isEqual(md.digest(aPin.getBytes()),
+                    this.pinHash);
+        } catch (NoSuchAlgorithmException e) {
+            System.err.println("error, caught NoSuchAlgorithmException");
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public void printAccountsSummary() {
+        System.out.printf("\n\n%s's accounts summary", this.firstName);
+        for (int a = 0; a < this.accounts.size(); a++) {
+            System.out.printf("%d) %s\n", a+1,
+                    this.accounts.get(a).getSummaryLine());
+        }
+        System.out.println();
+
+    }
+
+    public int numAccounts() {
+        return this.accounts.size();
+    }
+
+    public void printAcctTransHistory(int acctIdx) {
+        this.accounts.get(acctIdx).printTransHistory();
+    }
 }
