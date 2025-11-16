@@ -1,0 +1,112 @@
+/* --- ALIEN: ISOLATION THEME v2.3 (ENHANCED) --- */
+
+/* Анимация плавного появления */
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Анимация для "глитч"-эффекта текста */
+@keyframes text-flicker {
+    0% { opacity: 0.8; } 5% { opacity: 1.0; } 6% { opacity: 0.7; } 7% { opacity: 1.0; }
+    40% { opacity: 1.0; } 42% { opacity: 0.6; } 43% { opacity: 1.0; } 98% { opacity: 1.0; }
+    99% { opacity: 0.75; } 100% { opacity: 1.0; }
+}
+
+/* Анимация для мигающего курсора */
+@keyframes cursor-blink {
+    0% { opacity: 1.0; } 49% { opacity: 1.0; } 50% { opacity: 0.0; } 100% { opacity: 0.0; }
+}
+
+/* Анимация: Глитч-эффект для всего экрана */
+@keyframes crt-glitch {
+    0%, 2%, 4%, 20%, 30%, 52%, 60%, 72%, 80%, 92%, 100% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+    2.1%, 52.1%, 80.1%, 92.1% {
+        opacity: 0.8;
+        transform: scaleX(1.02) skewX(2deg);
+    }
+    52.2%, 80.2%, 92.2% {
+        opacity: 0.8;
+        transform: scaleX(1) skewX(0deg);
+    }
+}
+
+/* --- ОБЩИЕ СТИЛИ --- */
+.root {
+    -fx-background-color: #0a0a0a;
+    -fx-background-image: linear-gradient(rgba(0, 255, 0, 0.05) 1px, transparent 1px);
+    -fx-background-size: 1px 3px;
+    -fx-font-family: "VCR OSD Mono";
+    -fx-font-size: 16px;
+    -fx-animation: fade-in 0.5s ease-in, crt-glitch 7s infinite;
+}
+.label {
+    -fx-text-fill: #33ff33;
+    -fx-effect: none;
+    -fx-animation: text-flicker 3s infinite;
+}
+.info-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #229922;
+    -fx-animation: none;
+}
+.status-label { -fx-font-size: 14px; }
+.status-label .text { -fx-animation: none; }
+.status-label .cursor {
+    -fx-text-fill: #33ff33;
+    -fx-animation: cursor-blink 1s infinite;
+}
+
+/* --- СТИЛИ КНОПОК --- */
+.button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #33ff33; -fx-border-color: #33ff33;
+    -fx-border-width: 2px; -fx-background-radius: 0; -fx-border-radius: 0;
+    -fx-font-size: 14px; -fx-padding: 8px 18px;
+}
+.button:hover { -fx-background-color: #33ff33; -fx-text-fill: #0a0a0a; }
+.button:disabled { -fx-border-color: #1a4d1a; -fx-text-fill: #1a4d1a; -fx-opacity: 0.7; }
+.button-logout {}
+
+/* --- СТИЛИ ПОЛЕЙ ВВОДА --- */
+.text-field, .password-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #33ff33; -fx-border-color: #33ff33;
+    -fx-border-width: 1px; -fx-background-radius: 0; -fx-border-radius: 0;
+    -fx-prompt-text-fill: #1a4d1a; -fx-font-family: "VCR OSD Mono";
+    -fx-alignment: CENTER; -fx-font-size: 16px;
+}
+.text-field:focused, .password-field:focused { -fx-border-width: 2px; }
+
+/* --- СТИЛИ СПИСКОВ (ListView и ChoiceBox) --- */
+.list-view, .choice-box {
+    -fx-background-color: #0a0a0a;
+    -fx-border-color: #33ff33; -fx-border-width: 1px;
+}
+.list-view .list-cell, .choice-box .list-cell {
+    -fx-background-color: #0a0a0a;
+    -fx-text-fill: #33ff33; -fx-alignment: CENTER; -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+.list-view .list-cell:hover, .choice-box .list-cell:hover {
+    -fx-background-color: #33ff33;
+    -fx-text-fill: #0a0a0a;
+}
+.list-view .list-cell:selected {
+    -fx-background-color: #33ff33;
+    -fx-text-fill: #0a0a0a;
+}
+.choice-box .context-menu { -fx-background-color: #0a0a0a; }
+.choice-box .arrow { -fx-background-color: #33ff33; }
+.list-view:focused { -fx-background-insets: 0; }
+
+/* --- СТИЛИ ДЛЯ ДИАЛОГОВЫХ ОКОН --- */
+.dialog-pane { -fx-border-color: #33ff33; -fx-border-width: 2px; }
+.dialog-pane .header-panel { -fx-background-color: #0a0a0a; }
+.dialog-pane .header-panel .label {
+    -fx-text-fill: #33ff33; -fx-font-size: 16px; -fx-animation: none;
+}
+.dialog-pane .content .label { -fx-font-size: 16px; -fx-animation: none; }
