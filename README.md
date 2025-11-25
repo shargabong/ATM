@@ -33,7 +33,9 @@ code Bash
 
     
 git clone https://github.com/shargabong/ATM.git
+
 cd ATM
+
 mvn clean javafx:run
 
   
