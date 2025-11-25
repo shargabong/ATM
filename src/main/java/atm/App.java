@@ -12,10 +12,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * Главный класс, точка входа для JavaFX приложения.
- * Инициализирует банк, тестового пользователя и запускает графический интерфейс.
- */
 public class App extends Application {
 
     private static Bank bank;
@@ -27,17 +23,12 @@ public class App extends Application {
         Font.loadFont(getClass().getResource("/atm/VCR_OSD_MONO_1.001.ttf").toExternalForm(), 10);
         Parent root = FXMLLoader.load(getClass().getResource("/atm/login.fxml"));
         Scene scene = new Scene(root, 600, 400);
-        primaryStage.setTitle("ATM TERMINAL [SEVASTOPOL]");
+        primaryStage.setTitle("BOMBA TERMINAL");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
     }
     
-    /**
-     * Утилитарный метод для смены сцен (экранов) в главном окне.
-     * @param fxmlFile Имя fxml-файла для новой сцены.
-     * @param currentScene Текущая сцена для получения Stage.
-     */
     public static void changeScene(String fxmlFile, Scene currentScene) throws IOException {
         Parent newRoot = FXMLLoader.load(App.class.getResource("/atm/" + fxmlFile));
         Stage stage = (Stage) currentScene.getWindow();
@@ -48,11 +39,6 @@ public class App extends Application {
         return bank;
     }
 
-    /**
-     * Показывает стилизованное информационное или ошибочное сообщение.
-     * @param title Заголовок окна.
-     * @param content Текст сообщения.
-     */
     public static void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, content, ButtonType.OK);
         alert.setTitle(title);
@@ -70,15 +56,20 @@ public class App extends Application {
     }
     
     public static void main(String[] args) {
-        bank = new Bank("WEYLAND-YUTANI CORP.");
+        bank = new Bank("BOMBA BANK");
         User aUser = bank.addUser("Иван", "Иванов", "1234");
-        Account checkingAccount = new Account("Текущий", aUser, bank);
+        Account checkingAccount = new Account("AKIM INFINITE", aUser, bank);
         aUser.addAccount(checkingAccount);
         bank.addAccount(checkingAccount);
         
+        String rawCard = aUser.getUUID();
+        String formattedCard = rawCard.replaceAll("(.{4})", "$1 ").trim();
+        
         System.out.println("======================================================");
         System.out.println("--- ЗАПУСК ТЕРМИНАЛА ---");
-        System.out.println("Пользователь для входа: ID=" + aUser.getUUID() + ", PIN=1234");
+        System.out.println("Карта выпущена успешно.");
+        System.out.println("НОМЕР КАРТЫ: " + formattedCard);
+        System.out.println("PIN-КОД:     1234");
         System.out.println("======================================================");
         
         launch(args);

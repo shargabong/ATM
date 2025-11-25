@@ -7,9 +7,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import java.io.IOException;
 
-/**
- * Контроллер для экрана входа (login.fxml).
- */
 public class LoginController {
 
     @FXML private TextField userIdField;
@@ -23,19 +20,20 @@ public class LoginController {
         String pin = pinField.getText();
 
         if (userID.isEmpty() || pin.isEmpty()) {
-            statusLabel.setText("> ОШИБКА: ВВЕДИТЕ ID И PIN");
+            statusLabel.setText("> ОШИБКА: ВВЕДИТЕ НОМЕР КАРТЫ И PIN");
             return;
         }
         
         Bank bank = App.getBank();
-        User authUser = bank.userLogin(userID, pin);
+        String cleanID = userID.replace(" ", "");
+        User authUser = bank.userLogin(cleanID, pin);
 
         if (authUser != null) {
             App.loggedInUser = authUser;
             statusLabel.setText("> ДОСТУП РАЗРЕШЕН. ВХОД...");
             App.changeScene("main-menu.fxml", loginButton.getScene());
         } else {
-            statusLabel.setText("> ОШИБКА: НЕВЕРНЫЙ ID ИЛИ PIN");
+            statusLabel.setText("> ОШИБКА: НЕВЕРНАЯ КАРТА ИЛИ PIN");
         }
     }
 }

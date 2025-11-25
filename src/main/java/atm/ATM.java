@@ -22,7 +22,7 @@ public class ATM {
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Bank theBank = new Bank("Bank of Drausin");
+        Bank theBank = new Bank("Bank of BOMBA");
         User aUser = theBank.addUser("Иван", "Иванов", "1234");
 
         Account newAccount = new Account("Текущий", aUser, theBank);
@@ -126,7 +126,7 @@ public class ATM {
                 System.out.println("Неверный счет. Пожалуйста, попробуйте снова.");
             }
         } while (theAcct < 0 || theAcct >= theUser.numAccounts());
-        // theUser.printAcctTransHistory(theAcct); // Этот метод нужно будет реализовать, если он нужен
+        // theUser.printAcctTransHistory(theAcct); // если он нужен
     }
 
     /**

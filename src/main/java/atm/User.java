@@ -49,6 +49,22 @@ public class User {
         }
     }
 
+    public boolean changePin(String oldPin, String newPin) {
+        if (!validatePin(oldPin)) {
+            return false;
+        }
+        
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            this.pinHash = md.digest(newPin.getBytes());
+            System.out.println("PIN успешно изменен.");
+            return true;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public String getFirstName() {
         return this.firstName;
     }

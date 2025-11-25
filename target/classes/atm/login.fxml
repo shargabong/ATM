@@ -13,13 +13,13 @@
         <Insets bottom="20.0" left="50.0" right="50.0" top="20.0"/>
     </padding>
 
-    <Label text="ID ПОЛЬЗОВАТЕЛЯ:" />
-    <TextField fx:id="userIdField" maxWidth="250.0" promptText="XXXXXX"/>
+    <Label text="НОМЕР КАРТЫ:" />
+    <TextField fx:id="userIdField" maxWidth="300.0" promptText="XXXX XXXX XXXX XXXX"/>
 
     <Label text="PIN-КОД:" />
-    <PasswordField fx:id="pinField" maxWidth="250.0" promptText="****"/>
+    <PasswordField fx:id="pinField" maxWidth="300.0" promptText="****"/>
 
     <Button fx:id="loginButton" text="В Х О Д" onAction="#handleLoginButtonAction"/>
     
-    <Label fx:id="statusLabel" text="> ВВЕДИТЕ ВАШИ ДАННЫЕ" />
+    <Label fx:id="statusLabel" text="> ВСТАВЬТЕ КАРТУ" />
 </VBox>

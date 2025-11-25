@@ -18,19 +18,21 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * Контроллер для главного экрана меню (main-menu.fxml).
- */
 public class MainMenuController {
 
     @FXML private Label welcomeLabel;
     @FXML private Label userIdLabel;
     @FXML private ListView<String> accountsListView;
+    
+    // Кнопки
     @FXML private Button withdrawButton;
     @FXML private Button depositButton;
     @FXML private Button transferButton;
     @FXML private Button historyButton;
+    @FXML private Button paymentsButton;
+    @FXML private Button changePinButton;
     @FXML private Button logoutButton;
+    
     @FXML private Label statusLabel;
 
     @FXML
@@ -52,6 +54,8 @@ public class MainMenuController {
         depositButton.setDisable(disabled);
         transferButton.setDisable(disabled);
         historyButton.setDisable(disabled);
+        paymentsButton.setDisable(disabled);
+        changePinButton.setDisable(disabled);
     }
 
     private void setStatusText(String text) {
@@ -76,7 +80,7 @@ public class MainMenuController {
         User user = App.loggedInUser;
         if (user != null) {
             welcomeLabel.setText("> ДОБРО ПОЖАЛОВАТЬ, " + user.getFirstName().toUpperCase());
-            userIdLabel.setText("ID: " + user.getUUID());
+            userIdLabel.setText("КАРТА: " + user.getUUID().replaceAll("(.{4})", "$1 ").trim());
             ObservableList<String> accountSummaries = FXCollections.observableArrayList();
             for (int i = 0; i < user.numAccounts(); i++) {
                 accountSummaries.add(user.getAccountSummaryLine(i));
@@ -122,22 +126,46 @@ public class MainMenuController {
     private void handleDepositAction() {
         int accIdx = getSelectedAccountIndex();
         if (accIdx == -1) { return; }
-        TransactionDialog dialog = new TransactionDialog("ВНЕСЕНИЕ НАЛИЧНЫХ", "ВЫБРАН СЧЕТ: " + App.loggedInUser.getAcctUUID(accIdx));
+        BillDepositDialog dialog = new BillDepositDialog(App.loggedInUser.getAcctUUID(accIdx));
         Optional<Double> result = dialog.showAndWait();
         result.ifPresent(amount -> {
             if (amount <= 0) {
-                App.showAlert("ОШИБКА", "СУММА ДОЛЖНА БЫТЬ ПОЛОЖИТЕЛЬНОЙ.");
+                App.showAlert("ИНФО", "ОПЕРАЦИЯ ОТМЕНЕНА.");
                 return;
             }
-            App.loggedInUser.addAcctTransaction(accIdx, amount, "Внесение наличных");
-            App.showAlert("УСПЕХ", "СРЕДСТВА УСПЕШНО ЗАЧИСЛЕНЫ.");
+            App.loggedInUser.addAcctTransaction(accIdx, amount, "Внесение наличных (ATM)");
+            App.showAlert("УСПЕХ", String.format("СУММА %.2f руб. ЗАЧИСЛЕНА.", amount));
             refreshAccountsList(accIdx);
         });
     }
 
     @FXML
     private void handleTransferAction() throws IOException {
+        int accIdx = getSelectedAccountIndex();
+        if (accIdx == -1) { return; }
         App.changeScene("transfer-view.fxml", logoutButton.getScene());
+    }
+
+    // НОВОЕ: Платежи
+    @FXML
+    private void handlePaymentsAction() throws IOException {
+        int accIdx = getSelectedAccountIndex();
+        if (accIdx == -1) { return; }
+        App.changeScene("payments-view.fxml", logoutButton.getScene());
+    }
+
+    // НОВОЕ: Смена ПИН
+    @FXML
+    private void handleChangePinAction() {
+        // Вызываем диалог смены пина
+        ChangePinDialog dialog = new ChangePinDialog();
+        Optional<Boolean> result = dialog.showAndWait();
+        
+        result.ifPresent(success -> {
+            if (success) {
+                App.showAlert("УСПЕХ", "PIN-КОД УСПЕШНО ИЗМЕНЕН.\nПОЖАЛУЙСТА, ЗАПОМНИТЕ НОВЫЙ КОД.");
+            }
+        });
     }
 
     @FXML

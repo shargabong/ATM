@@ -1,3 +1,4 @@
+/home/zxc/TOPLESSS/ATM/src/main/java/atm/ChangePinDialog.java
 /home/zxc/TOPLESSS/ATM/src/main/java/atm/Account.java
 /home/zxc/TOPLESSS/ATM/src/main/java/atm/LoginController.java
 /home/zxc/TOPLESSS/ATM/src/main/java/atm/ATM.java
@@ -6,9 +7,13 @@
 /home/zxc/TOPLESSS/ATM/src/main/java/atm/TransferController.java
 /home/zxc/TOPLESSS/ATM/src/main/java/atm/CashCassette.java
 /home/zxc/TOPLESSS/ATM/src/main/java/atm/App.java
+/home/zxc/TOPLESSS/ATM/src/main/java/atm/CashValidator.java
+/home/zxc/TOPLESSS/ATM/src/main/java/atm/Bill.java
 /home/zxc/TOPLESSS/ATM/src/main/java/atm/UIUtils.java
 /home/zxc/TOPLESSS/ATM/src/main/java/atm/CashDispenser.java
 /home/zxc/TOPLESSS/ATM/src/main/java/atm/Bank.java
 /home/zxc/TOPLESSS/ATM/src/main/java/atm/User.java
+/home/zxc/TOPLESSS/ATM/src/main/java/atm/PaymentsController.java
 /home/zxc/TOPLESSS/ATM/src/main/java/atm/TransactionDialog.java
+/home/zxc/TOPLESSS/ATM/src/main/java/atm/BillDepositDialog.java
 /home/zxc/TOPLESSS/ATM/src/main/java/atm/HistoryController.java

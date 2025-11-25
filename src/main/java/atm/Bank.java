@@ -21,7 +21,7 @@ public class Bank {
     public String getNewUserUUID() {
         String uuid;
         Random rng = new Random();
-        int len = 6;
+        int len = 16;
         boolean nonUnique;
         do {
             uuid = "";
