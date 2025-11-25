@@ -1,4 +1,5 @@
 package atm;
+import atm.model.*;
 
 import java.util.Map;
 import java.util.Scanner;

@@ -7,7 +7,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" 
             xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="atm.HistoryController" stylesheets="@style.css">
+            fx:controller="atm.controller.HistoryController" stylesheets="@style.css">
    <center>
       <ListView fx:id="historyListView" BorderPane.alignment="CENTER">
          <BorderPane.margin>
