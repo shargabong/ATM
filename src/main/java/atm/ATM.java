@@ -1,32 +1,19 @@
 package atm;
-import atm.model.*;
 
+import atm.model.*;
 import java.util.Map;
 import java.util.Scanner;
 
-/**
- * Основной класс для эмуляции работы банкомата (ATM) в консольном режиме.
- * <p>
- * <b>Примечание:</b> Этот класс не используется в GUI-версии приложения.
- * Главным классом для графического интерфейса является {@code App.java}.
- * Этот файл сохранен для демонстрации первоначальной логики и для возможности
- * тестирования бэкенда в консоли.
- * </p>
- */
 public class ATM {
 
     private static CashDispenser dispenser = new CashDispenser();
 
-    /**
-     * Главный метод, точка входа в консольное приложение ATM.
-     * @param args аргументы командной строки (не используются).
-     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Bank theBank = new Bank("Bank of BOMBA");
+        Bank theBank = new Bank("Bank of Drausin");
         User aUser = theBank.addUser("Иван", "Иванов", "1234");
 
-        Account newAccount = new Account("Текущий", aUser, theBank);
+        Account newAccount = new Account("Текущий", "Checking", aUser, theBank);
         aUser.addAccount(newAccount);
         theBank.addAccount(newAccount);
 
@@ -37,12 +24,6 @@ public class ATM {
         }
     }
 
-    /**
-     * Отображает приветственное сообщение и запрашивает у пользователя ID и PIN.
-     * @param theBank банк, в котором производится аутентификация.
-     * @param sc      сканер для чтения ввода пользователя.
-     * @return        объект User в случае успешной аутентификации.
-     */
     public static User mainMenuPrompt(Bank theBank, Scanner sc) {
         String userID;
         String pin;
@@ -64,13 +45,7 @@ public class ATM {
         return authUser;
     }
 
-    /**
-     * Отображает меню опций для аутентифицированного пользователя.
-     * @param theUser пользователь, для которого отображается меню.
-     * @param sc      сканер для чтения ввода пользователя.
-     */
     public static void printUserMenu(User theUser, Scanner sc) {
-        theUser.getAccount(0).getBalance(); // Пример вызова, чтобы показать, что User работает
         int choice;
 
         do {
@@ -112,11 +87,6 @@ public class ATM {
         }
     }
 
-    /**
-     * Отображает историю транзакций для выбранного счета.
-     * @param theUser пользователь.
-     * @param sc      сканер.
-     */
     public static void showTransHistory(User theUser, Scanner sc) {
         int theAcct;
         do {
@@ -127,14 +97,12 @@ public class ATM {
                 System.out.println("Неверный счет. Пожалуйста, попробуйте снова.");
             }
         } while (theAcct < 0 || theAcct >= theUser.numAccounts());
-        // theUser.printAcctTransHistory(theAcct); // если он нужен
+        
+        for(String line : theUser.getAccount(theAcct).getTransactionsSummary()) {
+            System.out.println(line);
+        }
     }
 
-    /**
-     * Обрабатывает перевод средств между счетами.
-     * @param theUser пользователь.
-     * @param sc      сканер.
-     */
     public static void transferFunds(User theUser, Scanner sc) {
         int fromAcct, toAcct;
         double amount, acctBal;
@@ -173,11 +141,6 @@ public class ATM {
         theUser.addAcctTransaction(toAcct, amount, "Перевод со счета " + theUser.getAcctUUID(fromAcct));
     }
 
-    /**
-     * Обрабатывает снятие средств со счета.
-     * @param theUser пользователь.
-     * @param sc      сканер.
-     */
     public static void withdrawFunds(User theUser, Scanner sc) {
         int fromAcct;
         double amount, acctBal;
@@ -222,11 +185,6 @@ public class ATM {
         }
     }
 
-    /**
-     * Обрабатывает внесение средств на счет.
-     * @param theUser пользователь.
-     * @param sc      сканер.
-     */
     public static void depositFunds(User theUser, Scanner sc) {
         int toAcct;
         double amount;

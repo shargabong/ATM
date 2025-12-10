@@ -7,9 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-/**
- * Класс, создающий универсальное диалоговое окно для операций с вводом суммы.
- */
 public class TransactionDialog extends Dialog<Double> {
 
     private TextField amountField = new TextField();

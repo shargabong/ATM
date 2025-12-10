@@ -1,39 +1,37 @@
 package atm.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Класс, представляющий банковский счет.
- */
-public class Account {
+public class Account implements Serializable {
 
     private String name;
     private String uuid;
+    private String type;
     private User holder;
     private ArrayList<Transaction> transactions;
 
-    public Account(String name, User holder, Bank theBank) {
+    public Account(String name, String type, User holder, Bank theBank) {
         this.name = name;
+        this.type = type;
         this.holder = holder;
         this.uuid = theBank.getNewAccountUUID();
         this.transactions = new ArrayList<Transaction>();
     }
 
-    public String getUUID() {
-        return this.uuid;
-    }
-
-    public String getName() {
-        return this.name;
-    }
+    public String getUUID() { return this.uuid; }
+    public String getName() { return this.name; }
+    public String getType() { return this.type; }
 
     public String getSummaryLine() {
         double balance = this.getBalance();
-        if (balance >= 0) {
-            return String.format("%s : %.02f руб. : %s", this.uuid, balance, this.name);
-        } else {
-            return String.format("%s : (%.02f) руб. : %s", this.uuid, Math.abs(balance), this.name);
-        }
+        return String.format("%s (%s) : %.2f руб.", this.name, this.type, balance);
+    }
+    
+    public String getSelectorLabel() {
+        String typeRu = type.equals("Savings") ? "Сберегательный" : "Текущий";
+        return String.format("%s (%s)", this.name, typeRu);
     }
 
     public double getBalance() {
@@ -49,8 +47,8 @@ public class Account {
         this.transactions.add(newTrans);
     }
 
-    public java.util.List<String> getTransactionsSummary() {
-        java.util.List<String> summaries = new java.util.ArrayList<>();
+    public List<String> getTransactionsSummary() {
+        List<String> summaries = new ArrayList<>();
         if (this.transactions.isEmpty()) {
             summaries.add("ТРАНЗАКЦИЙ ЕЩЕ НЕТ.");
             return summaries;

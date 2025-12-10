@@ -11,9 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import java.io.IOException;
 
-/**
- * Контроллер для экрана перевода средств (transfer-view.fxml).
- */
 public class TransferController {
 
     @FXML private ChoiceBox<String> fromAccountBox;

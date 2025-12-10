@@ -2,24 +2,30 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="25.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="700.0" spacing="25.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="atm.controller.LoginController" stylesheets="@style.css">
     <padding>
         <Insets bottom="20.0" left="50.0" right="50.0" top="20.0"/>
     </padding>
 
     <Label text="НОМЕР КАРТЫ:" />
-    <TextField fx:id="userIdField" maxWidth="300.0" promptText="XXXX XXXX XXXX XXXX"/>
+    <TextField fx:id="userIdField" maxWidth="300.0" promptText="XXXXXXXX"/>
 
     <Label text="PIN-КОД:" />
     <PasswordField fx:id="pinField" maxWidth="300.0" promptText="****"/>
 
+    <Label text="--- ИЛИ ВЫБЕРИТЕ КАРТУ ---" style="-fx-font-size: 10px; -fx-opacity: 0.7;"/>
+    <ChoiceBox fx:id="userSelector" prefWidth="300.0" />
+
     <Button fx:id="loginButton" text="В Х О Д" onAction="#handleLoginButtonAction"/>
+    
+    <Button text="СОЗДАТЬ КАРТУ" onAction="#handleRegisterAction" style="-fx-font-size: 12px; -fx-opacity: 0.8;"/>
     
     <Label fx:id="statusLabel" text="> ВСТАВЬТЕ КАРТУ" />
 </VBox>

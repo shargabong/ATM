@@ -1,12 +1,10 @@
 package atm.model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Класс, представляющий одну банковскую транзакцию.
- */
-public class Transaction {
+public class Transaction implements Serializable {
 
     private double amount;
     private Date timestamp;

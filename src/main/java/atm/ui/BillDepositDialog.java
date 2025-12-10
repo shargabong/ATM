@@ -49,7 +49,7 @@ public class BillDepositDialog extends Dialog<Double> {
         messageLabel.setAlignment(Pos.CENTER);
         messageLabel.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
 
-        // --- НИЖНЯЯ ЧАСТЬ (ВАШ КОШЕЛЕК) ---
+        // --- НИЖНЯЯ ЧАСТЬ (КОШЕЛЕКА) ---
         Label walletLabel = new Label("--- ВАШ КОШЕЛЕК (НАЖМИТЕ НА КУПЮРУ) ---");
         walletLabel.setStyle("-fx-font-size: 12px; -fx-padding: 20 0 0 0;");
 
@@ -58,7 +58,6 @@ public class BillDepositDialog extends Dialog<Double> {
         billsGrid.setVgap(15);
         billsGrid.setAlignment(Pos.CENTER);
 
-        // Генерируем кнопки для настоящих купюр
         int[] denoms = {100, 200, 500, 1000, 2000, 5000};
         int col = 0;
         int row = 0;
@@ -70,7 +69,6 @@ public class BillDepositDialog extends Dialog<Double> {
             if (col > 2) { col = 0; row++; }
         }
 
-        // Специальная кнопка для ФАЛЬШИВОЙ купюры (для проверки защиты)
         Button fakeBtn = createBillButton(5000, false); // false = подделка
         fakeBtn.setText("5000 [ФАЛЬШ]");
         fakeBtn.setStyle("-fx-text-fill: #ff3333; -fx-border-color: #ff3333;");
@@ -79,7 +77,6 @@ public class BillDepositDialog extends Dialog<Double> {
         root.getChildren().addAll(header, subHeader, totalLabel, messageLabel, walletLabel, billsGrid);
         getDialogPane().setContent(root);
 
-        // Возвращаем итоговую сумму при нажатии "ЗАЧИСЛИТЬ"
         setResultConverter(dialogButton -> {
             if (dialogButton == depositButtonType) {
                 return totalAmount;
@@ -93,7 +90,6 @@ public class BillDepositDialog extends Dialog<Double> {
         btn.setPrefWidth(120);
         btn.setPrefHeight(50);
         
-        // При нажатии создаем объект Bill и суем его в валидатор
         btn.setOnAction(e -> {
             insertBill(new Bill(denomination, isReal));
         });
@@ -106,13 +102,11 @@ public class BillDepositDialog extends Dialog<Double> {
 
         try {
             if (validator.validate(bill)) {
-                // Если валидатор сказал ОК
                 totalAmount += bill.getDenomination();
                 totalLabel.setText(String.format("ВНЕСЕНО: %.2f руб.", totalAmount));
                 messageLabel.setText("> КУПЮРА " + bill.getDenomination() + " ПРИНЯТА.");
             }
         } catch (IllegalArgumentException e) {
-            // Если валидатор нашел ошибку
             messageLabel.setText("> ОШИБКА: " + e.getMessage() + "\n> КУПЮРА ВОЗВРАЩЕНА.");
             messageLabel.setStyle("-fx-text-fill: #ff3333; -fx-font-size: 14px;"); // Красный цвет
         }

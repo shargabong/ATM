@@ -1,8 +1,5 @@
 package atm.model;
 
-/**
- * Класс, представляющий кассету с купюрами определенного номинала.
- */
 public class CashCassette {
     private int denomination;
     private int count;

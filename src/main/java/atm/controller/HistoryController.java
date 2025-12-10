@@ -9,9 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import java.io.IOException;
 
-/**
- * Контроллер для экрана истории транзакций (history-view.fxml).
- */
 public class HistoryController {
 
     @FXML
@@ -20,10 +17,6 @@ public class HistoryController {
     @FXML
     private Button backButton;
 
-    /**
-     * Инициализирует контроллер данными о выбранном счете.
-     * @param account Счет, чью историю нужно отобразить.
-     */
     public void initData(Account account) {
         ObservableList<String> history = FXCollections.observableArrayList();
         history.addAll(account.getTransactionsSummary());

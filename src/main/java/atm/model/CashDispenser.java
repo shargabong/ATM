@@ -5,9 +5,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Класс, управляющий кассетами и реализующий алгоритм выдачи наличных.
- */
 public class CashDispenser {
     private ArrayList<CashCassette> cassettes;
 
@@ -21,11 +18,6 @@ public class CashDispenser {
         cassettes.sort(Comparator.comparingInt(CashCassette::getDenomination).reversed());
     }
 
-    /**
-     * "Жадный" алгоритм для расчета выдачи средств.
-     * @param amount Сумма для снятия.
-     * @return Map<Номинал, Количество> если успешно, или null если невозможно выдать.
-     */
     public Map<Integer, Integer> calculateWithdrawal(int amount) {
         Map<Integer, Integer> toDispense = new HashMap<>();
         int remainingAmount = amount;
@@ -45,9 +37,6 @@ public class CashDispenser {
         return (remainingAmount == 0) ? toDispense : null;
     }
 
-    /**
-     * Уменьшает количество купюр в кассетах после успешной операции.
-     */
     public void dispense(Map<Integer, Integer> billsToDispense) {
         for (Map.Entry<Integer, Integer> entry : billsToDispense.entrySet()) {
             for (CashCassette cassette : cassettes) {

@@ -1,12 +1,10 @@
 package atm.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Класс, представляющий банк. Управляет пользователями и счетами.
- */
-public class Bank {
+public class Bank implements Serializable {
 
     private String name;
     private ArrayList<User> users;
@@ -21,7 +19,7 @@ public class Bank {
     public String getNewUserUUID() {
         String uuid;
         Random rng = new Random();
-        int len = 16;
+        int len = 8;
         boolean nonUnique;
         do {
             uuid = "";
@@ -67,7 +65,7 @@ public class Bank {
     public User addUser(String firstName, String lastName, String pin) {
         User newUser = new User(firstName, lastName, pin, this);
         this.users.add(newUser);
-        Account newAccount = new Account("Сберегательный", newUser, this);
+        Account newAccount = new Account("Основной", "Checking", newUser, this);
         newUser.addAccount(newAccount);
         this.addAccount(newAccount);
         return newUser;
@@ -82,7 +80,9 @@ public class Bank {
         return null;
     }
 
-    public String getName() {
-        return this.name;
+    public String getName() { return this.name; }
+    
+    public ArrayList<User> getUsers() {
+        return this.users;
     }
 }

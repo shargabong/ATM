@@ -1,13 +1,11 @@
 package atm.model;
 
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-/**
- * Класс, представляющий пользователя (клиента) банка.
- */
-public class User {
+public class User implements Serializable {
 
     private String firstName;
     private String lastName;
@@ -23,7 +21,7 @@ public class User {
             MessageDigest md = MessageDigest.getInstance("MD5");
             this.pinHash = md.digest(pin.getBytes());
         } catch (NoSuchAlgorithmException e) {
-            System.err.println("Ошибка, пойман NoSuchAlgorithmException: " + e.getMessage());
+            System.err.println("Ошибка MD5: " + e.getMessage());
             System.exit(1);
         }
 
@@ -48,16 +46,12 @@ public class User {
             return false;
         }
     }
-
+    
     public boolean changePin(String oldPin, String newPin) {
-        if (!validatePin(oldPin)) {
-            return false;
-        }
-        
+        if (!validatePin(oldPin)) return false;
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             this.pinHash = md.digest(newPin.getBytes());
-            System.out.println("PIN успешно изменен.");
             return true;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -89,7 +83,7 @@ public class User {
         if (acctIdx >= 0 && acctIdx < this.accounts.size()) {
             return this.accounts.get(acctIdx).getSummaryLine();
         }
-        return "ОШИБКА: НЕВЕРНЫЙ ИНДЕКС СЧЕТА";
+        return "ОШИБКА";
     }
 
     public Account getAccount(int acctIdx) {

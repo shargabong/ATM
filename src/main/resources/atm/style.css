@@ -107,3 +107,14 @@
     -fx-text-fill: #33ff33; -fx-font-size: 16px; -fx-animation: none;
 }
 .dialog-pane .content .label { -fx-font-size: 16px; -fx-animation: none; }
+/* --- FIX ДЛЯ LIST VIEW --- */
+.list-view .virtual-flow .clipped-container {
+    -fx-background-color: #0a0a0a;
+}
+.list-view .scroll-bar:horizontal,
+.list-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #33ff33;
+}

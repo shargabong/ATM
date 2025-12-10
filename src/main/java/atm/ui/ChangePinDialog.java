@@ -44,7 +44,6 @@ public class ChangePinDialog extends Dialog<Boolean> {
         getDialogPane().setContent(container);
 
         final Button btOk = (Button) getDialogPane().lookupButton(changeButtonType);
-        // Не даем окну закрыться, если есть ошибки
         btOk.addEventFilter(javafx.event.ActionEvent.ACTION, event -> {
             String oldP = oldPin.getText();
             String newP = newPin.getText();
